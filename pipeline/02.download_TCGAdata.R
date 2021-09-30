@@ -1,6 +1,7 @@
 # Download TCGA breast cancer data gdc.cancer.gov
 
 library(TCGAbiolinks)
+source("TCGAbiolinks_ext.r")
 
 query <- GDCquery(project = "TCGA-BRCA",
                       data.category = "Transcriptome Profiling",
