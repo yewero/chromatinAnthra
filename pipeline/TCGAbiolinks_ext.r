@@ -220,10 +220,10 @@ get.GRCh.bioMart_new <- function (genome = "hg19", as.granges = FALSE)
     if (!is.null(gene.location)) 
       break
   }
-  gene.location <- gene.location[! duplicated(gene.location$ensembl_gene_id), ]  # XXX
   if (tries == 3L) 
     stop("failed to get URL after 3 tries:", "\n  error: ", 
          msg)
+  gene.location <- gene.location[! duplicated(gene.location$ensembl_gene_id), ]  # XXX
   if (as.granges) {
     gene.location$strand[gene.location$strand == 1] <- "+"
     gene.location$strand[gene.location$strand == -1] <- "-"
