@@ -4,6 +4,10 @@ library(org.Hs.eg.db)
 
 
 load('../data/02.GeneExp_gene_counts.RData')
+### remove FFPE samples
+cat("FFPE samples count:", sum(data.exp@colData$is_ffpe), "/", ncol(data.exp), "\n")
+data.exp <- data.exp[, ! data.exp@colData$is_ffpe]
+###
 
 exp_mat = MultiAssayExperiment::assay(data.exp)
 rn = rownames(exp_mat)
