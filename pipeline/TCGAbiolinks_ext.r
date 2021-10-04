@@ -271,5 +271,3 @@ build_gene_loc <- function(genome_dir = "../../Genomes/human_v22", gene.location
   return(gene_DF)
 }
 environment(build_gene_loc) <- asNamespace("TCGAbiolinks")
-assignInNamespace("build_gene_loc", build_gene_loc, "TCGAbiolinks")
-rm(build_gene_loc)
