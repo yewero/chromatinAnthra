@@ -176,7 +176,7 @@ environment(colDataPrepare_new) <- asNamespace("TCGAbiolinks")
 assignInNamespace("colDataPrepare", colDataPrepare_new, "TCGAbiolinks")
 rm(colDataPrepare_new)
 
-get.GRCh.bioMart_new <- function (genome = "hg19", as.granges = FALSE) 
+get.GRCh.bioMart_new <- function (genome = "hg19", use.gtf = T, as.granges = FALSE) 
 {
   tries <- 0L
   msg <- character()
@@ -206,6 +206,11 @@ get.GRCh.bioMart_new <- function (genome = "hg19", as.granges = FALSE)
         gene.location <- getBM(attributes = attributes, 
                                filters = c("chromosome_name"), values = list(chrom), 
                                mart = ensembl)
+        ###
+        if(use.gtf) {
+          gene.location <- build_gene_loc(gene.location = gene.location)
+        }
+        ###
         save(gene.location, file = filename)
       }
       else {
@@ -237,3 +242,34 @@ get.GRCh.bioMart_new <- function (genome = "hg19", as.granges = FALSE)
 environment(get.GRCh.bioMart_new) <- asNamespace("TCGAbiolinks")
 assignInNamespace("get.GRCh.bioMart", get.GRCh.bioMart_new, "TCGAbiolinks")
 rm(get.GRCh.bioMart_new)
+
+build_gene_loc <- function(genome_dir = "../../Genomes/human_v22", gene.location) {
+  gtf_file <- list.files(path = genome_dir, pattern = "gencode.v[0-9]+.primary_assembly.annotation.gtf", full.names = T)
+  cat("[info] use the GTF file:", gtf_file, "\n")
+  txdb <- GenomicFeatures::makeTxDbFromGFF(file = gtf_file, format = "gtf")
+  all_genes <- GenomicFeatures::genes(txdb)
+  all_genes <- as.data.frame(all_genes)
+  rownames(all_genes) <- NULL
+  all_genes$ensembl_gene_id <- gsub("\\..*", "", all_genes$gene_id)
+  # add gene name
+  id_file <- list.files(path = genome_dir, pattern = "gene_ID2Name.txt", full.names = T)
+  gene_name <- read.table(id_file, header = F, sep = "\t", stringsAsFactors = F)
+  colnames(gene_name) <- c("id", "name")
+  all_genes <- merge(all_genes, gene_name, by.x = "gene_id", by.y = "id", sort = F)
+  # add Entrez ID
+  gene_entrez <- gene.location[, c("ensembl_gene_id", "entrezgene_id")]
+  gene_entrez <- gene_entrez[order(gene_entrez$ensembl_gene_id, gene_entrez$entrezgene_id), ]
+  gene_entrez <- gene_entrez[! duplicated(gene_entrez$ensembl_gene_id), ]
+  all_genes <- merge(all_genes, gene_entrez, by = "ensembl_gene_id", all.x = T, sort = F)
+  # format res
+  gene_DF <- all_genes[, c("seqnames", "start", "end", "strand", "ensembl_gene_id", "entrezgene_id", "name")]
+  colnames(gene_DF) <- colnames(gene.location)
+  gene_DF$chromosome_name <- gsub("^chr", "", gene_DF$chromosome_name)
+  gene_DF$strand <- as.integer(ifelse(gene_DF$strand == "+", 1, -1))
+  gene_DF <- gene_DF[order(gene_DF$chromosome_name, gene_DF$start_position, gene_DF$end_position), ]
+  rownames(gene_DF) <- NULL
+  return(gene_DF)
+}
+environment(build_gene_loc) <- asNamespace("TCGAbiolinks")
+assignInNamespace("build_gene_loc", build_gene_loc, "TCGAbiolinks")
+rm(build_gene_loc)
