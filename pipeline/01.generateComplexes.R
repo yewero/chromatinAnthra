@@ -96,6 +96,7 @@ BAF =   getBM(attributes=c('hgnc_symbol',"entrezgene_id", "chromosome_name","sta
               filters = 'go', values = 'GO:0016514', mart = ensembl)
 BAF = BAF[BAF$go_id=='GO:0016514',]
 otherBAF = c("PBRM1","SS18","BCL11A","BCL11B","BCL7A","BCL7B","BCL7C","DPF1","DPF2","DPF3","PHF10","BRD9")
+otherBAF <- setdiff(otherBAF, BAF$hgnc_symbol)
 BAF2 = getBM(attributes=c('hgnc_symbol',"entrezgene_id", "chromosome_name","start_position","end_position"),
              filters = 'hgnc_symbol', values = otherBAF, mart = ensembl)
 if(length(setdiff(otherBAF, BAF2$hgnc_symbol)) > 0) {
