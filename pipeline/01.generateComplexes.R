@@ -344,11 +344,12 @@ complexes = rbind(complexes,pio)
 
 # X. all
 if(! exists("complexes_full")) {
+  cat("[info] create full copy of complexes\n")
   complexes_full <- complexes
 }
+complexes <- complexes_full
 
 # remove duplicate entrez
-complexes <- complexes_full
 complexes2 = unique(complexes[order(complexes$entrezgene_id),c(1,2)])
 idDup = duplicated(complexes2$hgnc_symbol)
 falseEntrez = complexes2$entrezgene_id[idDup]
