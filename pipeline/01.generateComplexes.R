@@ -361,14 +361,15 @@ complexes = complexes[!complexes$entrezgene_id %in% falseEntrez,]
 complexes <- complexes[complexes$hgnc_symbol != "", ]
 
 complexes_rep <- complexes
-
-
+cat("[info] Total:", length(unique(complexes_rep$hgnc_symbol)), "unique genes.\n")
 #save(complexes, file="../data/complexes_v1.3_BRCA.RData")
+
+# load v1.2 data
 load("../data/complexes_v1.2_BRCA.RData")
 complexes_pub <- complexes
 rm(complexes)
 
-### comparison
+### comparison (v1.2 and current)
 setdiff(complexes_pub$hgnc_symbol, complexes_rep$hgnc_symbol)
 setdiff(complexes_rep$hgnc_symbol, complexes_pub$hgnc_symbol)
 
