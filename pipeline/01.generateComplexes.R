@@ -354,10 +354,12 @@ complexes2 = unique(complexes[order(complexes$entrezgene_id),c(1,2)])
 idDup = duplicated(complexes2$hgnc_symbol)
 falseEntrez = complexes2$entrezgene_id[idDup]
 rm(complexes2)
-
 complexes = complexes[!complexes$entrezgene_id %in% falseEntrez,]
-complexes = na.omit(complexes) # 471 unique genes (! it will remove the genes with NA in entrez gene ID)
-#subset(complexes_full, ! hgnc_symbol %in% complexes_rep$hgnc_symbol)
+
+# remove the genes with no smybol
+#complexes = na.omit(complexes) (! it will remove the genes with NA in entrez gene ID)
+complexes <- complexes[complexes$hgnc_symbol != "", ]
+
 complexes_rep <- complexes
 
 
