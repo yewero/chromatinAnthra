@@ -50,7 +50,7 @@ tpc2regulon = function(net,filterTFs=NULL,pvalueCutoff= 0.05){
     mode1 = sign(net@results$tn.dpi[,TFs])
     
     scores <- net@results$tn.dpi[,TFs]
-    qvalues = net@results$adjpv[,TFs]
+    qvalues = net@results$miadjpv[,TFs]
     
     
     aracne <- list()
