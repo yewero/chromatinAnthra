@@ -88,8 +88,8 @@ save(chromatin_regulon,file = "../data/chromatin_regulon.RData")
 
 
 #Supfig2
-
-
+library("ggplot2")
+dir.create("../plots", showWarnings = F)
 
 chromatin_degrees = unlist(lapply(chromatin_regulon,function(x) length(x$tfmode)))
 # get histogram of regulon
@@ -100,5 +100,5 @@ ggsave("../plots/SupFig2_histogram_CRG_regulon.pdf",width = 7,height = 4)
 # get barplot regulon
 
 ggpubr::ggbarplot(toPlot[toPlot$degree>500,],x="gene",y="degree",sort.val = "asc",
-                  color=viridis::viridis_pal()(3)[1],fill=viridis::viridis_pal()(3)[1])+theme(axis.text.x = element_text(angle = 35,vjust=0.65))
+                  color=viridis::viridis_pal()(3)[1],fill=viridis::viridis_pal()(3)[1])+theme(axis.text.x = element_text(angle = 35, hjust = 1))
 ggsave("../plots/SupFig2_barplot_CRG_regulon.pdf",width = 7,height = 4)
