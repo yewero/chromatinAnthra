@@ -262,6 +262,7 @@ complexes = rbind(complexes,CONDE)
 TOPO = getBM(attributes=c('hgnc_symbol',"entrezgene_id", "chromosome_name","start_position","end_position", 'go_id',"name_1006"),
              filters = 'go', values = 'GO:0003916', mart = ensembl)
 TOPO = TOPO[TOPO$go_id=='GO:0003916',]
+TOPO = TOPO[TOPO$chromosome_name %in% c(1:22,"X","Y"),]
 
 TOPO$name="TOPO"
 TOPO$color="#FCCDE5"
@@ -274,6 +275,8 @@ complexes = rbind(complexes,TOPO)
 DNA_meth = getBM(attributes=c('hgnc_symbol',"entrezgene_id", "chromosome_name","start_position","end_position", 'go_id',"name_1006"),
                    filters = 'go', values = 'GO:0006306', mart = ensembl)
 DNA_meth = DNA_meth[DNA_meth$go_id=='GO:0006306',]
+DNA_meth = DNA_meth[DNA_meth$chromosome_name %in% c(1:22,"X","Y"),]
+
 DNA_meth$name="DNA_METH"
 DNA_meth$color="aquamarine"
 
