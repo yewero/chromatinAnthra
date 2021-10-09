@@ -252,7 +252,7 @@ build_gene_loc <- function(genome_dir = "../../Genomes/human_v22", gene.location
   rownames(all_genes) <- NULL
   all_genes$ensembl_gene_id <- gsub("\\..*", "", all_genes$gene_id)
   # add gene name
-  id_file <- list.files(path = genome_dir, pattern = "gene_ID2Name.txt", full.names = T)
+  id_file <- list.files(path = genome_dir, pattern = "gene_ID2Name_fixed.txt", full.names = T)
   gene_name <- read.table(id_file, header = F, sep = "\t", stringsAsFactors = F)
   colnames(gene_name) <- c("id", "name")
   all_genes <- merge(all_genes, gene_name, by.x = "gene_id", by.y = "id", sort = F)
