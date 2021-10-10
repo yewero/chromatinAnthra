@@ -24,6 +24,7 @@ colnames(complexes)[colnames(complexes) == "name.x"] <- "name"
 complexes <- complexes[, c(13, 3:10, 1:2)]
 all(complexes$hgnc_symbol %in% gene_ID_v22$name)
 rm(complexes_1, complexes_2)
+cat("Unique selected gene number:", length(unique(complexes$hgnc_symbol)), "\n")
 
 # load expression object
 load("../data/vst.RData")
