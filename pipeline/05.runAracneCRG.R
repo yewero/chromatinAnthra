@@ -28,12 +28,13 @@ rm(complexes_1, complexes_2)
 # load expression object
 load("../data/vst.RData")
 
-des_raw = select(org.Hs.eg.db, rownames(exp.T.vst), c("ENTREZID","GENENAME","ENSEMBL"), "ENSEMBL")
 exp.T.vst.e = exp.T.vst
 exp.N.vst.e = exp.N.vst
-Des$entrez = des_raw$ENTREZID[match(Des$ensembl_gene_id,des_raw$ENSEMBL)]
 rownames(exp.T.vst.e)=Des$external_gene_name
 rownames(exp.N.vst.e)=Des$external_gene_name
+
+# des_raw = select(org.Hs.eg.db, rownames(exp.T.vst), c("ENTREZID","GENENAME","ENSEMBL"), "ENSEMBL")
+# Des$entrez = des_raw$ENTREZID[match(Des$ensembl_gene_id,des_raw$ENSEMBL)]
 # idna = which(is.na(Des$entrez))
 # idna = which(rownames(exp.T.vst.e)=="")
 Des.e = Des
@@ -44,7 +45,7 @@ iddup = duplicated(rownames(exp.T.vst.e))
 exp.T.vst.e= exp.T.vst.e[which(!iddup),]
 exp.N.vst.e= exp.N.vst.e[which(!iddup),]
 Des.e = Des.e[which(!iddup),]
-geneNames = unique(Des.e$external_gene_name[Des.e$entrez %in% unique(complexes$entrezgene)])
+geneNames = intersect(Des.e$external_gene_name, complexes$hgnc_symbol)
 names(geneNames)=geneNames
 tumor.TNI <- new("TNI", gexp=exp.T.vst.e, regulatoryElements=geneNames)
 tumor.rtni <- tni.preprocess(tumor.TNI)
