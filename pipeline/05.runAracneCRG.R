@@ -34,12 +34,12 @@ exp.N.vst.e = exp.N.vst
 Des$entrez = des_raw$ENTREZID[match(Des$ensembl_gene_id,des_raw$ENSEMBL)]
 rownames(exp.T.vst.e)=Des$external_gene_name
 rownames(exp.N.vst.e)=Des$external_gene_name
-idna = which(is.na(Des$entrez))
-#idna = which(rownames(exp.T.vst.e)=="")
+# idna = which(is.na(Des$entrez))
+# idna = which(rownames(exp.T.vst.e)=="")
 Des.e = Des
-exp.T.vst.e=exp.T.vst.e[-idna,]
-exp.N.vst.e=exp.N.vst.e[-idna,]
-Des.e = Des.e[-idna,]
+# exp.T.vst.e=exp.T.vst.e[-idna,]
+# exp.N.vst.e=exp.N.vst.e[-idna,]
+# Des.e = Des.e[-idna,]
 iddup = duplicated(rownames(exp.T.vst.e))
 exp.T.vst.e= exp.T.vst.e[which(!iddup),]
 exp.N.vst.e= exp.N.vst.e[which(!iddup),]
