@@ -115,6 +115,6 @@ sig2$logPval = -log10(sig2$P.Value)
 library(ggrastr)
 ggplot(data=sig2, aes(x=logFC, y=-log10(P.Value), colour=threshold)) +
   geom_point(alpha=0.4, size=1.75) + theme_bw()+scale_color_manual(values=c("navy", "firebrick3"),labels=c("Non significant","Sig"))+
-  xlim(c(-3, 3)) + ylim(c(0, 7)) +
+  xlim(c(-3.2, 3.2)) + ylim(c(0, 7)) +
   xlab("log2 fold change") + ylab("-log10 p-value") 
 ggsave("../plots/FigS3a_volcanodoxoSignature.pdf")
