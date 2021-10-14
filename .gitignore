@@ -3,6 +3,7 @@
 allTumor_rtni.RData
 aracne_APgeneList.exp
 aracne_APtumor.exp
+bootstrapNetwork_*
 cellLineDoxoSignature.RData
 PSets
 saved_DES_aac.RData
