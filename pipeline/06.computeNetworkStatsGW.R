@@ -79,12 +79,12 @@ influ = function(aracneFile = "network.txt",genelist=NULL,cores=1){
 
 metrics_weigthed_ARACNE2("../data/ARACNE_all_res/network.txt",folder = "../data/",label = "_tumor")
 influencers = influ("../data/ARACNE_all_res/network.txt",cores=15)
-save(influencers = file="../data/influencers.RData")
+save(influencers, file="../data/influencers.RData")
 
 # to plot supfig 1 panel D
 load("../data/complexes_v1.2_BRCA.RData")
-genesInf = totalGenes %in% kk2$influencers
-genesChrom = totalGenes %in% complexes$hgnc_symbol
+genesInf = influencers$totalGenes %in% influencers$influencers
+genesChrom = influencers$totalGenes %in% complexes$hgnc_symbol
 fisher.test(table(genesChrom,genesInf))
 
 
