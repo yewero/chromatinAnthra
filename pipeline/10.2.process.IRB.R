@@ -14,6 +14,18 @@ erExp = expOrig["205225_at",]
 
 getThreshold = function(exp){
   intersect <- function(m1, s1, m2, s2, prop1, prop2){
+    # fix order
+    if(m1 > m2) {
+      mx <- m1
+      m1 <- m2
+      m2 <- mx
+      sx <- s1
+      s1 <- s2
+      s2 <- sx
+      propx <- prop1
+      prop1 <- prop2
+      prop2 <- propx
+    }
     
     B <- (m1/s1^2 - m2/s2^2)
     A <- 0.5*(1/s2^2 - 1/s1^2)
