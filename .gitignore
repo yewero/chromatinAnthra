@@ -5,6 +5,7 @@ aracne_APgeneList.exp
 aracne_APtumor.exp
 bootstrapNetwork_*
 cellLineDoxoSignature.RData
+GSE3494_raw.RData
 PSets
 saved_DES_aac.RData
 saved_ds.RData
