@@ -1,7 +1,7 @@
 library(GEOquery)
 
 rawsetL = getGEO("GSE45255")
-save(rawsetL,file = "./data/clinical//GSE45255_raw.RData")
+save(rawsetL,file = "./data/clinical/GSE45255_raw.RData")
 
 
 
