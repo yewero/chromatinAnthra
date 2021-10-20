@@ -23,3 +23,13 @@ fixCompName <- function(complexes) {
   print(all(complexes$hgnc_symbol %in% gene_ID_v22$name))
   return(complexes)
 }
+
+geneID2name <- function(id, file.dir = "../../Genomes", species = "human", version = "v22") {
+  # load gene ID
+  gene_ID <- read.table(paste0(file.dir, "/", species, "_", version, "/gene_ID2Name_fixed.txt"), header = F, sep = "\t", stringsAsFactors = F)
+  colnames(gene_ID) <- c("id", "name")
+  gene_ID$ensembl_nov <- gsub("\\..*", "", gene_ID$id)
+  # map ID
+  id <- gene_ID$name[match(id, gene_ID$ensembl_nov)]
+  return(id)
+}
