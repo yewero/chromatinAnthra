@@ -81,6 +81,10 @@ metrics_weigthed_ARACNE2("../data/ARACNE_all_res/network.txt",folder = "../data/
 influencers = influ("../data/ARACNE_all_res/network.txt",cores=15)
 save(influencers, file="../data/influencers.RData")
 
+# gene ID to name
+influencers$totalGenes <- geneID2name(influencers$totalGenes)
+influencers$influencers <- geneID2name(influencers$influencers)
+
 # to plot supfig 1 panel D
 load("../data/complexes_v1.2_BRCA.RData")
 complexes <- fixCompName(complexes)
@@ -93,6 +97,7 @@ fisher.test(table(genesChrom,genesInf))
 library(ggplot2)
 
 metrix = read.table("../data/graph_stats_weight_tumor.tsv",stringsAsFactors = F,header = T,sep = "\t")
+metrix$genes <- geneID2name(metrix$genes)
 metrix$complex = complexes$name[match(metrix$genes,complexes$hgnc_symbol)]
 metrix.l = reshape2::melt(metrix)
 metrix.l$complex = complexes$name[match(metrix.l$genes,complexes$hgnc_symbol)]
