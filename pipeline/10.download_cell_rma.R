@@ -4,7 +4,7 @@ ch.names= c("UPP","IRB","KAO","MAIRE","STK")
 ch.geos = c("GSE3494","GSE45255","GSE20685","GSE65194","GSE1456")
 
 tmpDir = "../data/clinical/cells"
-
+dir.create(tmpDir, recursive = T, showWarnings = F)
 
 
 for(i in 1:length(ch.geos)){
@@ -22,7 +22,7 @@ for(i in 1:length(ch.geos)){
       stop(paste("No raw data files could be downloaded from GEO for ", inFilePattern, sep=""))
     
     downloadDir = paste(tmpDir,"/",inFilePattern,"/",sep="")
-    dir.create(downloadDir, recursive=TRUE)
+    dir.create(downloadDir, recursive=TRUE, showWarnings = F)
     untar(tarFilePath, exdir=downloadDir)
     inFilePattern = file.path(downloadDir, expectedFilePrefixPattern, sep="")
   }
@@ -45,7 +45,7 @@ for(i in 1:length(ch.geos)){
   celF = ReadAffy(filenames = fns)
   eset <- rma(celF)
 
-  dir.create(paste("../data/clinical/rma/"),recursive = T)
+  dir.create(paste("../data/clinical/rma/"),recursive = T, showWarnings = F)
   
   save(eset,file=paste("../data/clinical/rma/", inFilePattern,".RData",sep=""))
   }
