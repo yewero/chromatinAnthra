@@ -1,5 +1,6 @@
 # download raw cel data
 library(GEOquery)
+library("affy")
 ch.names= c("UPP","IRB","KAO","MAIRE","STK")
 ch.geos = c("GSE3494","GSE45255","GSE20685","GSE65194","GSE1456")
 
@@ -40,14 +41,14 @@ for(i in 1:length(ch.geos)){
   fileNamePattern = sub("\\+", "\\\\+", fileNamePattern)
   celFilePaths = list.files(path=dirname(inFilePattern), pattern=fileNamePattern, full.names=TRUE, ignore.case=TRUE)
   celFilePaths = unique(celFilePaths)
-  cellFilesPath2 = list.files(path=dirname(inFilePattern), pattern="CEL.gz", full.names=TRUE, ignore.case=TRUE)
+  celFilesPath2 = list.files(path=dirname(inFilePattern), pattern="CEL.gz", full.names=TRUE, ignore.case=TRUE)
   if(!ch.geos[i] %in% c("GSE3494")){
-  celF = ReadAffy(filenames = fns)
+  celF = ReadAffy(filenames = celFilesPath2)
   eset <- rma(celF)
 
   dir.create(paste("../data/clinical/rma/"),recursive = T, showWarnings = F)
   
-  save(eset,file=paste("../data/clinical/rma/", inFilePattern,".RData",sep=""))
+  save(eset,file=paste("../data/clinical/rma/", ch.geos[i],".RData",sep=""))
   }
   gc()
     
