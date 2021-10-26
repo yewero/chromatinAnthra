@@ -23,11 +23,7 @@ saved_ds.RData
 
 ## 10
 # getGEOSuppFiles
-GSE1456_RAW.tar
-GSE20685_RAW.tar
-GSE3494_RAW.tar
-GSE45255_RAW.tar
-GSE65194_RAW.tar
+GSE[0-9]+_RAW.tar
 GSE45255_full_geneexpression_matrix.txt.gz
 # untar
 GSM*.CEL.gz
