@@ -32,10 +32,7 @@ GSE45255_full_geneexpression_matrix.txt.gz
 # untar
 GSM*.CEL.gz
 # rmas
-GSE1456.RData
-GSE20685.RData
-GSE45255.RData
-GSE65194.RData
+GSE[0-9]+.RData
 
 ## 10.?
 GSE*_raw.RData
