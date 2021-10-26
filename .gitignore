@@ -6,10 +6,23 @@ aracne_APtumor.exp
 bootstrapNetwork_*
 cellLineDoxoSignature.RData
 GSE3494_raw.RData
-GSE45255_full_geneexpression_matrix.txt.gz
 GSE45255_raw.RData
 PSets
 saved_DES_aac.RData
 saved_ds.RData
 vst.RData
 *_RAW.tar
+
+## 10
+# getGEOSuppFiles
+GSE1456_RAW.tar
+GSE20685_RAW.tar
+GSE3494_RAW.tar
+GSE45255_RAW.tar
+GSE65194_RAW.tar
+GSE45255_full_geneexpression_matrix.txt.gz
+# rma
+GSE1456.RData
+GSE20685.RData
+GSE45255.RData
+GSE65194.RData
