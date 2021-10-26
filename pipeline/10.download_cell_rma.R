@@ -43,12 +43,16 @@ for(i in 1:length(ch.geos)){
   celFilePaths = unique(celFilePaths)
   celFilesPath2 = list.files(path=dirname(inFilePattern), pattern="CEL.gz", full.names=TRUE, ignore.case=TRUE)
   if(!ch.geos[i] %in% c("GSE3494")){
-  celF = ReadAffy(filenames = celFilesPath2)
-  eset <- rma(celF)
+    cdfNames <- sapply(celFilesPath2, function(x) { affyio::read.celfile.header(x)[["cdfName"]] })
+    cdfNames_rmdup <- unique(cdfNames)
+    if(length(cdfNames_rmdup) > 1) {
+      warning("Found multiple cdf names: ", paste(cdfNames_rmdup, collapse = ", "), ", but we only use the first one.")
+    }
+    celF = ReadAffy(filenames = celFilesPath2[cdfNames == cdfNames_rmdup[1]])
+    eset <- rma(celF)
 
-  dir.create(paste("../data/clinical/rma/"),recursive = T, showWarnings = F)
-  
-  save(eset,file=paste("../data/clinical/rma/", ch.geos[i],".RData",sep=""))
+    dir.create(paste("../data/clinical/rma/"),recursive = T, showWarnings = F)
+    save(eset,file=paste("../data/clinical/rma/", ch.geos[i],".RData",sep=""))
   }
   gc()
     
