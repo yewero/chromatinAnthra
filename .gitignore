@@ -30,16 +30,14 @@ GSE45255_RAW.tar
 GSE65194_RAW.tar
 GSE45255_full_geneexpression_matrix.txt.gz
 # untar
-*.CEL.gz
-# rma
+GSM*.CEL.gz
+# rmas
 GSE1456.RData
 GSE20685.RData
 GSE45255.RData
 GSE65194.RData
 
-## 10.1
-GSE3494_raw.RData
-
-## 10.2
-GSE45255_raw.RData
+## 10.?
+GSE*_raw.RData
 rmaData.RData
+
