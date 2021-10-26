@@ -77,15 +77,15 @@ covariate.df$cohort = "IRB/JNR/NUH"
 
 covariate.df$age =as.numeric(gsub("[^0-9]", "", phenoData$characteristics_ch1.6))
 ER_1 = phenoData$characteristics_ch1.1=="er status: ER+"
-table(ER,ER_1)
+#table(ER,ER_1)
 table(er_probe,ER_1)
 
 PR_1 = phenoData$characteristics_ch1.2=="pgr status: PgR+"
-table(PR,PR_1)
+#table(PR,PR_1)
 table(pr_probe,PR_1)
 
 Her2_1 = phenoData$characteristics_ch1.3=="her2 status: He+"
-table(HER2,Her2_1)
+#table(HER2,Her2_1)
 table(her2_probe,Her2_1)
 
 covariate.df$er = ER_1
@@ -165,9 +165,9 @@ covariate.df$Tax[phenoData$characteristics_ch1.11   %in% c("treatment type: NA")
 
 
 load("../data/clinical/rmas/GSE45255.RData")
+all(gsub("_.*", "", rownames(pData(eset))) == rownames(covariate.df))
 pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[1]])
 eset_rma = eset
 save(eset_rma,file="../data/clinical/rmas/GSE45255/rmaData.RData")
-
