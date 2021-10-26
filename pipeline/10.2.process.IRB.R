@@ -1,11 +1,12 @@
 library(GEOquery)
 
-rawsetL = getGEO("GSE45255")
-dir.create("../data/clinical", showWarnings = F, recursive = T)
-save(rawsetL,file = "../data/clinical/GSE45255_raw.RData")
-
-
-
+if(file.exists("../data/clinical/GSE45255_raw.RData")) {
+  load(file = "../data/clinical/GSE45255_raw.RData")
+} else {
+  rawsetL = getGEO("GSE45255")
+  dir.create("../data/clinical", showWarnings = F, recursive = T)
+  save(rawsetL,file = "../data/clinical/GSE45255_raw.RData")
+}
 
 expOrig = exprs(rawsetL[[1]])
 prExp = expOrig["208305_at",]
@@ -170,4 +171,6 @@ pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[1]])
 eset_rma = eset
+
+dir.create("../data/clinical/rmas/GSE45255", recursive = T, showWarnings = F)
 save(eset_rma,file="../data/clinical/rmas/GSE45255/rmaData.RData")
