@@ -1,8 +1,12 @@
 library(GEOquery)
 
-rawsetL = getGEO("GSE65194")
-save(rawsetL,file = "./data/clinical//GSE65194_raw.RData")
-
+if(file.exists("../data/clinical/GSE65194_raw.RData")) {
+  load(file = "../data/clinical/GSE65194_raw.RData")
+} else {
+  rawsetL = getGEO("GSE65194")
+  dir.create("../data/clinical", showWarnings = F, recursive = T)
+  save(rawsetL,file = "../data/clinical/GSE65194_raw.RData")
+}
 
 expOrig = exprs(rawsetL[[1]])
 prExp = expOrig["208305_at",]
@@ -11,6 +15,18 @@ erExp = expOrig["205225_at",]
 
 getThreshold = function(exp){
   intersect <- function(m1, s1, m2, s2, prop1, prop2){
+    # fix order
+    if(m1 > m2) {
+      mx <- m1
+      m1 <- m2
+      m2 <- mx
+      sx <- s1
+      s1 <- s2
+      s2 <- sx
+      propx <- prop1
+      prop1 <- prop2
+      prop2 <- propx
+    }
     
     B <- (m1/s1^2 - m2/s2^2)
     A <- 0.5*(1/s2^2 - 1/s1^2)
@@ -39,7 +55,7 @@ pr_probe = prExp>thresholdPR
 her2_probe = her2Exp>thresholdher2
 er_probe = erExp>thresholder
 
-phenoData1 = read.table("/data2/data/BAF_cohort_files/cells/GSE65194/GSE65194_clinical_data_update.txt",header = T,sep = "\t",stringsAsFactors = F)[,1:40]
+phenoData1 = read.table(gzfile("../data/clinical/cells/GSE65194/GSE65194_clinical_data_update.txt.gz"),header = T,sep = "\t",stringsAsFactors = F)[,1:40]
 phenoData = GSE65194_UPC@phenoData@data
 phenoData$ER_exp = ER
 phenoData$PR_exp = PR
