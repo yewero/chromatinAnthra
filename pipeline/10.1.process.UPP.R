@@ -1,8 +1,12 @@
 library(GEOquery)
 
-rawsetL = getGEO("GSE3494")
-dir.create("../data/clinical", showWarnings = F, recursive = T)
-save(rawsetL,file = "../data/clinical/GSE3494_raw.RData")
+if(file.exists("../data/clinical/GSE3494_raw.RData")) {
+  load(file = "../data/clinical/GSE3494_raw.RData")
+} else {
+  rawsetL = getGEO("GSE3494")
+  dir.create("../data/clinical", showWarnings = F, recursive = T)
+  save(rawsetL,file = "../data/clinical/GSE3494_raw.RData")
+}
 
 load("../data/clinical/cells/GSE1456/Sweden_Clinical.RData")
 load("../data/clinical/cells/GSE3494/uppsala-U133A.RData")
