@@ -23,14 +23,13 @@ saved_ds.RData
 
 ## 10
 # getGEOSuppFiles
-GSE[0-9]+_RAW.tar
+data/clinical/cells/GSE*/GSE*_RAW.tar
 GSE45255_full_geneexpression_matrix.txt.gz
 # untar
-GSM*.CEL.gz
+data/clinical/cells/GSE*/GSM*.CEL.gz
 # rmas
-GSE[0-9]+.RData
+data/clinical/rmas/GSE*.RData
 
 ## 10.?
-GSE*_raw.RData
-rmaData.RData
-
+data/clinical/GSE*_raw.RData
+data/clinical/rmas/GSE45255/rmaData.RData
