@@ -1,8 +1,12 @@
 library(GEOquery)
 
-rawsetL = getGEO("GSE20685")
-save(rawsetL,file = "./data/clinical//GSE20685_raw.RData")
-
+if(file.exists("../data/clinical/GSE20685_raw.RData")) {
+  load(file = "../data/clinical/GSE20685_raw.RData")
+} else {
+  rawsetL = getGEO("GSE20685")
+  dir.create("../data/clinical", showWarnings = F, recursive = T)
+  save(rawsetL,file = "../data/clinical/GSE20685_raw.RData")
+}
 
 expOrig = exprs(rawsetL[[1]])
 prExp = expOrig["208305_at",]
@@ -11,6 +15,18 @@ erExp = expOrig["205225_at",]
 
 getThreshold = function(exp){
   intersect <- function(m1, s1, m2, s2, prop1, prop2){
+    # fix order
+    if(m1 > m2) {
+      mx <- m1
+      m1 <- m2
+      m2 <- mx
+      sx <- s1
+      s1 <- s2
+      s2 <- sx
+      propx <- prop1
+      prop1 <- prop2
+      prop2 <- propx
+    }
     
     B <- (m1/s1^2 - m2/s2^2)
     A <- 0.5*(1/s2^2 - 1/s1^2)
@@ -30,23 +46,19 @@ getThreshold = function(exp){
 }
 
 getThreshold(prExp)
-thresholdPR = getThreshold(prExp)
 thresholdPR = 6.033366
-thresholdher2 = getThreshold(her2Exp)
+getThreshold(her2Exp)
 thresholdher2 = 12.84642
-thresholder = getThreshold(erExp)
+getThreshold(erExp)
 thresholder =11.60443
 pr_probe = prExp>thresholdPR
 her2_probe = her2Exp>thresholdher2
 er_probe = erExp>thresholder
 
-
 phenoData = pData(rawsetL[[1]])
 
 covariate.df= data.frame(title=phenoData$title, stringsAsFactors = F)
-###############################################
 rownames(covariate.df)=rownames(phenoData)
-##############################################3
 covariate.df$adjuvant = T
 covariate.df$neoadjuvant = F
 covariate.df$adjNONE = NA
