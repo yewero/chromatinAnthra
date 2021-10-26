@@ -1,17 +1,25 @@
+## 02
 02.GeneExp_gene_counts_ori.RData
 02.GeneExp_gene_counts.RData
-allTumor_rtni.RData
+
+## 03
 aracne_APgeneList.exp
 aracne_APtumor.exp
+vst.RData
+
+## 04
 bootstrapNetwork_*
+
+## 05
+allTumor_rtni.RData
+
+## 07a
 cellLineDoxoSignature.RData
-GSE3494_raw.RData
-GSE45255_raw.RData
+
+## 07b
 PSets
 saved_DES_aac.RData
 saved_ds.RData
-vst.RData
-*_RAW.tar
 
 ## 10
 # getGEOSuppFiles
@@ -26,3 +34,7 @@ GSE1456.RData
 GSE20685.RData
 GSE45255.RData
 GSE65194.RData
+
+## 10.1
+GSE3494_raw.RData
+GSE45255_raw.RData
