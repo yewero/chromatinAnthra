@@ -51,8 +51,8 @@ for(i in 1:length(ch.geos)){
     celF = ReadAffy(filenames = celFilesPath2[cdfNames == cdfNames_rmdup[1]])
     eset <- rma(celF)
 
-    dir.create(paste("../data/clinical/rma/"),recursive = T, showWarnings = F)
-    save(eset,file=paste("../data/clinical/rma/", ch.geos[i],".RData",sep=""))
+    dir.create(paste("../data/clinical/rmas/"),recursive = T, showWarnings = F)
+    save(eset,file=paste("../data/clinical/rmas/", ch.geos[i],".RData",sep=""))
   }
   gc()
     
