@@ -104,7 +104,7 @@ lymphNodeNum = NA
 size= NA
 
 
-source("~/projects/BAF/tmn_stage.R")
+source("tmn_stage.R")
 
 stage = mapply(tmn_stage,t = as.numeric(gsub("[^0-9]", "", t_stage)),m = as.numeric(gsub("[^0-9]", "", m_stage)),n=as.numeric(gsub("[^0-9]", "", n_stage)))
 covariate.df$stage = stage
