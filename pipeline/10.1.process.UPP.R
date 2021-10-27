@@ -176,11 +176,11 @@ covariate.df$Tax= NA
 
 dir.create("../data/clinical/cells/GSE3494/GPL96/")
 flist <- sapply(colnames(rawsetL[[1]]@assayData$exprs),function(x) list.files("../data/clinical/cells/GSE3494/",  x, full.names = TRUE))
-file.symlink(unlist(flist), "../data/clinical/cells/GSE3494/GPL96/")
+file.symlink(file.path("..", basename(flist)), "../data/clinical/cells/GSE3494/GPL96/")
 
 dir.create("../data/clinical/cells/GSE3494/GPL97/")
 flist <- sapply(colnames(rawsetL[[2]]@assayData$exprs),function(x) list.files("../data/clinical/cells/GSE3494/",  x, full.names = TRUE))
-file.symlink(unlist(flist), "../data/clinical/cells/GSE3494/GPL97/")
+file.symlink(file.path("..", basename(flist)), "../data/clinical/cells/GSE3494/GPL97/")
 
 
 library(affy)
