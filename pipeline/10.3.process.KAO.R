@@ -142,8 +142,11 @@ covariate.df$Tax= NA
 
 
 load("../data/clinical/rmas/GSE20685.RData")
+all(gsub("_.*", "", rownames(pData(eset))) == rownames(covariate.df))
 pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[1]])
 eset_rma = eset
+
+dir.create("../data/clinical/rmas/GSE20685", recursive = T, showWarnings = F)
 save(eset_rma,file="../data/clinical/rmas/GSE20685/rmaData.RData")
