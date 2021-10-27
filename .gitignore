@@ -33,3 +33,4 @@ data/clinical/rmas/GSE*.RData
 ## 10.?
 data/clinical/GSE*_raw.RData
 data/clinical/rmas/GSE45255/rmaData.RData
+../data/clinical/uppsala-U133A.RData	# 10.1
