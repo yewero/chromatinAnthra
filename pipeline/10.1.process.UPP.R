@@ -175,11 +175,11 @@ covariate.df$Tax= NA
 # process cells 
 
 dir.create("../data/clinical/cells/GSE3494/GPL96/")
-flist <- sapply(colnames(rawsetL[[1]]@assayData$exprs),function(x) list.files("../data/clinical/cells/GSE3494/",  paste(x,"*",sep = ""), full.names = TRUE))
+flist <- sapply(colnames(rawsetL[[1]]@assayData$exprs),function(x) list.files("../data/clinical/cells/GSE3494/",  x, full.names = TRUE))
 file.copy(unlist(flist), "../data/clinical/cells/GSE3494/GPL96/")
 
 dir.create("../data/clinical/cells/GSE3494/GPL97/")
-flist <- sapply(colnames(rawsetL[[2]]@assayData$exprs),function(x) list.files("../data/clinical/cells/GSE3494/",  paste(x,"*",sep = ""), full.names = TRUE))
+flist <- sapply(colnames(rawsetL[[2]]@assayData$exprs),function(x) list.files("../data/clinical/cells/GSE3494/",  x, full.names = TRUE))
 file.copy(unlist(flist), "../data/clinical/cells/GSE3494/GPL97/")
 
 
