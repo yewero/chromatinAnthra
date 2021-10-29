@@ -84,7 +84,7 @@ dic_samples <- lapply(colnames(cor_exp), function(x) {
   return(y)
 })
 dic_samples <- do.call("rbind", dic_samples)
-dic_samples <- dic_samples[dic_samples[, 3] > 0.99, ]
+dic_samples <- subset(dic_samples, cor_value > 0.99)
 all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == seq(79114, 79364))
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Uppsala", ]
 
