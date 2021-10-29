@@ -78,16 +78,12 @@ probeTest = intersect(rownames(exprs(rawsetL[[1]])), rownames(upp.x))
 exp_geo = exprs(rawsetL[[1]])[probeTest,]
 exp_ext = upp.x[probeTest,]
 
-dic_samples = NA
-for(i in 1:ncol(exp_ext)){
-  id_ext = colnames(upp.x)[i]
-  vcor = apply(exp_geo,2,function(x) cor(x,exp_ext[,i]))
-  idgeo = which.max(vcor)  
-  maxgeo = max(vcor)
-  
-  dic_samples = rbind(dic_samples,c(id_ext,names(idgeo),maxgeo))
-}
-dic_samples = dic_samples[-c(1),]
+cor_exp <- cor(exp_geo, exp_ext)
+dic_samples <- t(sapply(colnames(cor_exp), function(x) {
+  y <- c(ext_id = x, geo_id = rownames(cor_exp)[which.max(cor_exp[, x])], cor_value = max(cor_exp[, x]))
+  return(y)
+}))
+dic_samples <- as.data.frame(dic_samples)
 dic_samples <- dic_samples[dic_samples[, 3] > 0.99, ]
 all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == seq(79114, 79364))
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Uppsala", ]
