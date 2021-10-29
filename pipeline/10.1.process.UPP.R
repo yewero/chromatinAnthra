@@ -22,15 +22,14 @@ if(! file.exists("../data/clinical/uppsala-U133A.RData")) {
 }
 load("../data/clinical/uppsala-U133A.RData")
 
-expOrig = exprs(rawsetL[[1]])
-prExp = expOrig["208305_at",]
-her2Exp = expOrig["216836_s_at",]
-erExp = expOrig["205225_at",]
-
 phenoData = read.table("../data/clinical/clinic.txt",header = T,sep = "\t",stringsAsFactors = F)  # From GEO
 
 ## NO INFO TO SAY WHICH GET CMF or TAM or nothing, but none of them receive anthra (16846532)
 
+expOrig = exprs(rawsetL[[1]])
+prExp = expOrig["208305_at",]
+her2Exp = expOrig["216836_s_at",]
+erExp = expOrig["205225_at",]
 
 getThreshold = function(exp){
   intersect <- function(m1, s1, m2, s2, prop1, prop2){
