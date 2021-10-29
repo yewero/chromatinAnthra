@@ -203,7 +203,7 @@ featureData(eset)=featureData(rawsetL[[1]])
 eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
 dir.create("../data/clinical/rmas/GSE3494",recursive = T)
 eset_rma = eset
-save(eset_rma,file="../data/clinical/rmas/rmas/GSE3494/rmaData_96.RData")
+save(eset_rma,file="../data/clinical/rmas/GSE3494/rmaData_96.RData")
 
 fns = list.celfiles("../data/clinical/cells/GSE3494/GPL97/",full.names=T)
 celF = ReadAffy(filenames = fns)
