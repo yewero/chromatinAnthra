@@ -74,6 +74,7 @@ pr_probe = prExp>thresholdPR
 her2_probe = her2Exp>thresholdher2
 er_probe = erExp>thresholder
 
+# sample ID mapping
 probeTest = intersect(rownames(exprs(rawsetL[[1]])), rownames(upp.x))
 exp_geo = exprs(rawsetL[[1]])[probeTest,]
 exp_ext = upp.x[probeTest,]
@@ -86,6 +87,7 @@ dic_samples <- lapply(colnames(cor_exp), function(x) {
 dic_samples <- do.call("rbind", dic_samples)
 dic_samples <- subset(dic_samples, cor_value > 0.99)
 all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == seq(79114, 79364))
+
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Uppsala", ]
 
 phenoData2 = cbind(phenoData,SwedenClinical[dic_samples[match(pData(rawsetL[[1]])$geo_accession,dic_samples[,2]),1],])
