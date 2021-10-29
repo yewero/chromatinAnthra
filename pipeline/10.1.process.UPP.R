@@ -188,7 +188,7 @@ library(affy)
 fns = list.celfiles("../data/clinical/cells/GSE3494/GPL96/",full.names=T)
 celF = ReadAffy(filenames = fns)
 eset <- rma(celF)
-colnames(eset)=substr(colnames(eset),1,10)
+colnames(eset)=substr(colnames(eset),1,8)
 all(rownames(pData(eset)) == rownames(covariate.df))
 pData(eset)=covariate.df
 
