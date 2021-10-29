@@ -201,7 +201,7 @@ pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[1]])
 eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
-dir.create("../data/clinical/rmas/GSE3494",recursive = T)
+dir.create("../data/clinical/rmas/GSE3494",recursive = T, showWarnings = F)
 eset_rma = eset
 save(eset_rma,file="../data/clinical/rmas/GSE3494/rmaData_96.RData")
 
@@ -213,7 +213,7 @@ all(rownames(pData(eset)) == rownames(covariate.df_U133B))
 pData(eset)=covariate.df_U133B
 
 featureData(eset)=featureData(rawsetL[[2]])
-#eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
-dir.create("../data/clinical/rmas/GSE3494",recursive = T)
+eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
+dir.create("../data/clinical/rmas/GSE3494",recursive = T, showWarnings = F)
 eset_rma = eset
 save(eset_rma,file="../data/clinical/rmas/GSE3494/rmaData_97.RData")
