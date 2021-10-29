@@ -89,6 +89,7 @@ for(i in 1:ncol(exp_ext)){
 }
 dic_samples = dic_samples[-c(1),]
 dic_samples <- dic_samples[dic_samples[, 3] > 0.99, ]
+all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == seq(79114, 79364))
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Uppsala", ]
 
 phenoData2 = cbind(phenoData,SwedenClinical[dic_samples[match(pData(rawsetL[[1]])$geo_accession,dic_samples[,2]),1],])
