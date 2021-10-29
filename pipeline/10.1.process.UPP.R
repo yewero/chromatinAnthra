@@ -74,7 +74,7 @@ pr_probe = prExp>thresholdPR
 her2_probe = her2Exp>thresholdher2
 er_probe = erExp>thresholder
 
-probeTest = rownames(upp.x)[c(500:5500)]
+probeTest = intersect(rownames(exprs(rawsetL[[1]])), rownames(upp.x))
 exp_geo = exprs(rawsetL[[1]])[probeTest,]
 exp_ext = upp.x[probeTest,]
 
