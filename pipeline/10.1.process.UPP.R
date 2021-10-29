@@ -203,7 +203,7 @@ celF = ReadAffy(filenames = fns)
 eset <- rma(celF)
 colnames(eset)=substr(colnames(eset),1,8)
 all(rownames(pData(eset)) == rownames(covariate.df))
-pData(eset)=cov
+pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[2]])
 #eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
