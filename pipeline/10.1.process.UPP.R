@@ -79,11 +79,11 @@ exp_geo = exprs(rawsetL[[1]])[probeTest,]
 exp_ext = upp.x[probeTest,]
 
 cor_exp <- cor(exp_geo, exp_ext)
-dic_samples <- t(sapply(colnames(cor_exp), function(x) {
-  y <- c(ext_id = x, geo_id = rownames(cor_exp)[which.max(cor_exp[, x])], cor_value = max(cor_exp[, x]))
+dic_samples <- lapply(colnames(cor_exp), function(x) {
+  y <- data.frame(ext_id = x, geo_id = rownames(cor_exp)[which.max(cor_exp[, x])], cor_value = max(cor_exp[, x]), stringsAsFactors = F)
   return(y)
-}))
-dic_samples <- as.data.frame(dic_samples)
+})
+dic_samples <- do.call("rbind", dic_samples)
 dic_samples <- dic_samples[dic_samples[, 3] > 0.99, ]
 all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == seq(79114, 79364))
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Uppsala", ]
