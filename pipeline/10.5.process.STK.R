@@ -85,9 +85,6 @@ dic_samples <- do.call("rbind", dic_samples)
 dic_samples <- subset(dic_samples, cor_value > 0.99)
 all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == setdiff(seq(107072, 107231), 107116))
 
-
-
-
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Stockholm", ]
 
 phenoData2 = cbind(phenoData,SwedenClinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],],stk.clinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],])
