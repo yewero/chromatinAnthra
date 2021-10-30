@@ -71,21 +71,19 @@ er_probe = erExp>thresholder
 
 phenoData = pData(rawsetL[[1]])
 
-
-probeTest = rownames(stk.x)[c(500:5500)]
+# sample ID mapping
+probeTest = intersect(rownames(exprs(rawsetL[[1]])), rownames(stk.x))
 exp_geo = exprs(rawsetL[[1]])[probeTest,]
 exp_ext = stk.x[probeTest,]
 
-dic_samples = NA
-for(i in 1:ncol(exp_ext)){
-  id_ext = colnames(stk.x)[i]
-  vcor = apply(exp_geo,2,function(x) cor(x,exp_ext[,i]))
-  idgeo = which.max(vcor)  
-  maxgeo = max(vcor)
-  
-  dic_samples = rbind(dic_samples,c(id_ext,names(idgeo),maxgeo))
-}
-dic_samples = dic_samples[-c(1),]
+cor_exp <- cor(exp_geo, exp_ext)
+dic_samples <- lapply(colnames(cor_exp), function(x) {
+  y <- data.frame(ext_id = x, geo_id = rownames(cor_exp)[which.max(cor_exp[, x])], cor_value = max(cor_exp[, x]), stringsAsFactors = F)
+  return(y)
+})
+dic_samples <- do.call("rbind", dic_samples)
+dic_samples <- subset(dic_samples, cor_value > 0.99)
+all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == setdiff(seq(107072, 107231), 107116))
 
 
 
