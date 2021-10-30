@@ -91,10 +91,11 @@ id_mu$cohort <- rep(c("Uppsala", "Stockholm"), c(sum(SwedenClinical$cohort == "U
 id_mu$new_id <- make.unique(id_mu$ori_id, sep = "")
 id_mu <- subset(id_mu, cohort == "Stockholm")
 all(rownames(subset(SwedenClinical, cohort == "Stockholm")) %in% id_mu$new_id)
+dic_samples$ext_id_mu <- id_mu$new_id[match(dic_samples$ext_id, id_mu$ori_id)]
 
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Stockholm", ]
 
-phenoData2 = cbind(phenoData,SwedenClinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],],stk.clinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],])
+phenoData2 = cbind(phenoData,SwedenClinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),4],],stk.clinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],])
 phenoData = phenoData2
 
 #phenoData_2 = GSE1456_UPC_2@phenoData@data
