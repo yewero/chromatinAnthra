@@ -8,15 +8,24 @@ if(file.exists("../data/clinical/GSE1456_raw.RData")) {
   save(rawsetL,file = "../data/clinical/GSE1456_raw.RData")
 }
 
-load("../data/clinical/cells/GSE1456/Sweden_Clinical.RData")
-load("../data/clinical/cells/GSE3494/uppsala-U133A.RData")
+if(! file.exists("../data/clinical/Sweden_Clinical.RData")) {
+  download.file(url = "https://www.meb.ki.se/sites/yudpaw/wp-content/uploads/sites/5/papers/Intrinsic_Signature.zip", 
+                destfile = "../data/clinical/Intrinsic_Signature.zip")
+  unzip(zipfile = "../data/clinical/Intrinsic_Signature.zip", files = "Sweden_Clinical.RData", exdir = "../data/clinical/")
+  file.remove("../data/clinical/Intrinsic_Signature.zip")
+}
+load("../data/clinical/Sweden_Clinical.RData")
+
+if(! file.exists("../data/clinical/stockholm-U133A.RData")) {
+  download.file(url = "https://www.meb.ki.se/sites/yudpaw/wp-content/uploads/sites/5/papers/stockholm-U133A.RData", 
+                destfile = "../data/clinical/stockholm-U133A.RData")
+}
+load("../data/clinical/stockholm-U133A.RData")
 
 expOrig = exprs(rawsetL[[1]])
 prExp = expOrig["208305_at",]
 her2Exp = expOrig["216836_s_at",]
 erExp = expOrig["205225_at",]
-
-
 
 getThreshold = function(exp){
   intersect <- function(m1, s1, m2, s2, prop1, prop2){
