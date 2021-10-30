@@ -183,6 +183,14 @@ covariate.df$Herc = NA
 covariate.df$Tam =covariate.df$ht
 covariate.df$Tax= NA
 
+# map covariate.df from U133A to U133B
+pid_A <- gsub(" .*", "", as.character(pData(rawsetL[[1]])$title))
+pid_B <- gsub(" .*", "", as.character(pData(rawsetL[[2]])$title))
+covariate.df_U133B <- covariate.df[match(pid_B, pid_A), ]
+covariate.df_U133B$title <- pData(rawsetL[[2]])$title
+covariate.df_U133B$geoAc = pData(rawsetL[[2]])$geo_accession
+rownames(covariate.df_U133B) <- colnames(rawsetL[[2]])
+
 # process cells 
 
 dir.create("../data/clinical/cells/GSE1456/GPL96/", recursive = T, showWarnings = F)
@@ -212,11 +220,12 @@ save(eset_rma,file="../data/clinical/rmas/GSE1456/rmaData_96.RData")
 fns = list.celfiles("../data/clinical/cells/GSE1456/GPL97/",full.names=T)
 celF = ReadAffy(filenames = fns)
 eset <- rma(celF)
-colnames(eset)=substr(colnames(eset),1,8)
-pData(eset)=cov
+colnames(eset)=substr(colnames(eset),1,9)
+all(rownames(pData(eset)) == rownames(covariate.df_U133B))
+pData(eset)=covariate.df_U133B
 
 featureData(eset)=featureData(rawsetL[[2]])
-#eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
-dir.create("../data/clinical/rmas/GSE1456",recursive = T)
+eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
+dir.create("../data/clinical/rmas/GSE1456",recursive = T, showWarnings = F)
 eset_rma = eset
 save(eset_rma,file="../data/clinical/rmas/GSE1456/rmaData_97.RData")
