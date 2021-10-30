@@ -131,8 +131,12 @@ covariate.df$Tax= phenoData$CHEMO_DRUG_GROUP %in% c("Anthracyclines+Taxanes","Ta
 
 
 load("../data/clinical/rmas/GSE65194.RData")
+colnames(eset)=substr(colnames(eset),1,10)
+eset <- eset[, colnames(eset) %in% rownames(covariate.df)]
+all(rownames(pData(eset)) == rownames(covariate.df))
 pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[1]])
+dir.create("../data/clinical/rmas/GSE65194",recursive = T, showWarnings = F)
 eset_rma = eset
 save(eset_rma,file="../data/clinical/rmas/GSE65194/rmaData.RData")
