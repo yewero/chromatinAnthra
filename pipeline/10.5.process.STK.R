@@ -85,6 +85,13 @@ dic_samples <- do.call("rbind", dic_samples)
 dic_samples <- subset(dic_samples, cor_value > 0.99)
 all(as.numeric(gsub("GSM", "", dic_samples[, 2])) == setdiff(seq(107072, 107231), 107116))
 
+# fix IDs
+id_mu <- data.frame(ori_id = c(rownames(subset(SwedenClinical, cohort == "Uppsala")), colnames(stk.x)), stringsAsFactors = F)
+id_mu$cohort <- rep(c("Uppsala", "Stockholm"), c(sum(SwedenClinical$cohort == "Uppsala"), ncol(stk.x)))
+id_mu$new_id <- make.unique(id_mu$ori_id, sep = "")
+id_mu <- subset(id_mu, cohort == "Stockholm")
+all(rownames(subset(SwedenClinical, cohort == "Stockholm")) %in% id_mu$new_id)
+
 SwedenClinical = SwedenClinical[ SwedenClinical$cohort=="Stockholm", ]
 
 phenoData2 = cbind(phenoData,SwedenClinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],],stk.clinical[dic_samples[match(phenoData$geo_accession,dic_samples[,2]),1],])
