@@ -22,10 +22,6 @@ if(! file.exists("../data/clinical/uppsala-U133A.RData")) {
 }
 load("../data/clinical/uppsala-U133A.RData")
 
-phenoData = read.table("../data/clinical/clinic.txt",header = T,sep = "\t",stringsAsFactors = F)  # From GEO
-
-## NO INFO TO SAY WHICH GET CMF or TAM or nothing, but none of them receive anthra (16846532)
-
 expOrig = exprs(rawsetL[[1]])
 prExp = expOrig["208305_at",]
 her2Exp = expOrig["216836_s_at",]
@@ -72,6 +68,10 @@ thresholder =8.757161
 pr_probe = prExp>thresholdPR
 her2_probe = her2Exp>thresholdher2
 er_probe = erExp>thresholder
+
+phenoData = read.table("../data/clinical/clinic.txt",header = T,sep = "\t",stringsAsFactors = F)  # From GEO
+
+## NO INFO TO SAY WHICH GET CMF or TAM or nothing, but none of them receive anthra (16846532)
 
 # sample ID mapping
 probeTest = intersect(rownames(exprs(rawsetL[[1]])), rownames(upp.x))
