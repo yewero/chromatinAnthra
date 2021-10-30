@@ -199,14 +199,15 @@ library(affy)
 fns = list.celfiles("../data/clinical/cells/GSE1456/GPL96/",full.names=T)
 celF = ReadAffy(filenames = fns)
 eset <- rma(celF)
-colnames(eset)=substr(colnames(eset),1,10)
+colnames(eset)=substr(colnames(eset),1,9)
+all(rownames(pData(eset)) == rownames(covariate.df))
 pData(eset)=covariate.df
 
 featureData(eset)=featureData(rawsetL[[1]])
 eset = eset[which(rownames(eset) %in% eset@featureData@data$ID),]
-dir.create("../data/clinical/rmas/GSE1456",recursive = T)
+dir.create("../data/clinical/rmas/GSE1456",recursive = T, showWarnings = F)
 eset_rma = eset
-save(eset_rma,file="../data/clinical/rmas/rmas/GSE1456/rmaData_96.RData")
+save(eset_rma,file="../data/clinical/rmas/GSE1456/rmaData_96.RData")
 
 fns = list.celfiles("../data/clinical/cells/GSE1456/GPL97/",full.names=T)
 celF = ReadAffy(filenames = fns)
