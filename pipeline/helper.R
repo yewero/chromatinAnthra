@@ -21,7 +21,7 @@ mergeNONE = function(esets)
 		{
 			msg(" ! WARNING ! Number of common genes < 1%")
 		}
-		fData = fData(eset1)[cg,]
+		finfo = fData(eset1)[cg,]
 		
 		#-----------------------------------------------------
 		# Rebuild pData
@@ -55,7 +55,7 @@ mergeNONE = function(esets)
 			pheno[(nrow(p1)+1):(nrow(p1)+nrow(p2)), sp2] = as.matrix(p2[,sp2])
 		}
 		
-		pData = as.data.frame(pheno,stringAsFactors=F)
+		pheno = as.data.frame(pheno,stringAsFactors=F)
 		
 		#-----------------------------------------------------
 		# Rebuild rest eset
@@ -69,8 +69,8 @@ mergeNONE = function(esets)
 		#eset1 = new("ExpressionSet");    
 		eset1 = ExpressionSet(assayData =cbind(d1, d2) )
 		#exprs(eset1) = cbind(d1, d2);
-		pData(eset1) = pData;
-		fData(eset1) = fData;
+		pData(eset1) = pheno;
+		fData(eset1) = finfo;
 		
 		annot1 = c(annot1, annotation(eset2));
 		
