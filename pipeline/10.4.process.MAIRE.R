@@ -56,7 +56,26 @@ her2_probe = her2Exp>thresholdher2
 er_probe = erExp>thresholder
 
 phenoData1 = read.table(gzfile("../data/clinical/cells/GSE65194/GSE65194_clinical_data_update.txt.gz"),header = T,sep = "\t",stringsAsFactors = F)[,1:40]
-phenoData = GSE65194_UPC@phenoData@data
+
+###
+phenoData = rawsetL[[1]]@phenoData@data
+
+idER = which(rawsetL[[1]]@featureData@data$ID=="205225_at")
+getThreshold(rawsetL[[1]]@assayData$exprs[idER,])
+thresholder = 4.476298
+ER = rawsetL[[1]]@assayData$exprs[idER,]>thresholder
+
+idPR = which(rawsetL[[1]]@featureData@data$ID=="208305_at")
+getThreshold(rawsetL[[1]]@assayData$exprs[idPR,])
+thresholdpr = 2.261742
+PR = rawsetL[[1]]@assayData$exprs[idPR,]>thresholdpr
+
+idHER2 = which(rawsetL[[1]]@featureData@data$ID=="216836_s_at")
+getThreshold(rawsetL[[1]]@assayData$exprs[idHER2,])
+thresholdher2 = 12.81383
+HER2 = rawsetL[[1]]@assayData$exprs[idHER2,]>thresholdher2
+###
+
 phenoData$ER_exp = ER
 phenoData$PR_exp = PR
 phenoData$Her2_exp = HER2
