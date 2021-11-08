@@ -56,6 +56,11 @@ mergeNONE = function(esets)
 		}
 		
 		pheno = as.data.frame(pheno,stringAsFactors=F)
+		###
+		# for(id_num in c("age", "grade", "lymphNodeNum", "os.t", "rdfs.t", "rfs.t", "size", "t_stage")) {
+		#   pheno[, id_num] <- as.numeric(as.character(pheno[, id_num]))
+		# }
+		###
 		
 		#-----------------------------------------------------
 		# Rebuild rest eset
