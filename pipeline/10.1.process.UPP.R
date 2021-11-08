@@ -115,7 +115,7 @@ PR_1 = phenoData$PgR.status=="PgR+"
 #table(PR,PR_1)
 table(pr_probe,PR_1)
 
-covariate.df$pr = PR
+covariate.df$pr = PR_1
 
 
 covariate.df$her2 = her2_probe
