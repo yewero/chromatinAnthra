@@ -71,6 +71,19 @@ er_probe = erExp>thresholder
 
 phenoData = pData(rawsetL[[1]])
 
+###
+idPR = which(rawsetL[[1]]@featureData@data$ID=="208305_at")
+getThreshold(rawsetL[[1]]@assayData$exprs[idPR,])
+thresholdpr = 4.579956
+PR = rawsetL[[1]]@assayData$exprs[idPR,]>thresholdpr
+idsim = match(names(pr_probe),substr(names(PR),1,9))
+
+idHER2 = which(rawsetL[[1]]@featureData@data$ID=="216836_s_at")
+getThreshold(rawsetL[[1]]@assayData$exprs[idHER2,])
+thresholdher2 = 8.888842
+HER2 = rawsetL[[1]]@assayData$exprs[idHER2,]>thresholdher2
+###
+
 # sample ID mapping
 probeTest = intersect(rownames(exprs(rawsetL[[1]])), rownames(stk.x))
 exp_geo = exprs(rawsetL[[1]])[probeTest,]
@@ -119,7 +132,7 @@ covariate.df$cohort = "STK"
 
 covariate.df$age = phenoData$age
 ER_1 = phenoData$er
-table(ER,ER_1)
+#table(ER,ER_1)
 table(er_probe,ER_1[idsim])
 covariate.df$er = ER_1
 covariate.df$pr = PR
