@@ -100,7 +100,7 @@ covariate.df$cohort = "MAIRE"
 covariate.df$age = as.numeric(phenoData$Age.at.diagnosis.yrs.)
 covariate.df$er = phenoData$ER_exp
 covariate.df$pr = phenoData$PR_exp
-covariate.df$her2 = phenoData$erbB2_POSITIVE
+covariate.df$her2 = phenoData$erbB2_POSITIVE == "yes"
 covariate.df$hist = phenoData$Histological.type.1
 
 grade = NA
