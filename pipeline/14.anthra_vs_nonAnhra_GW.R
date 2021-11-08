@@ -92,7 +92,7 @@ load("../data/clinical/rmas/GSE65194/rmaData.RData")
 MAIRE = eset_rma
 MAIRE = MAIRE[,rownames(pData(MAIRE))]
 
-pData(MAIRE)$her2 = plyr::revalue(pData(MAIRE)$her2,c("no"="FALSE","yes"="TRUE"))
+#pData(MAIRE)$her2 = plyr::revalue(pData(MAIRE)$her2,c("no"="FALSE","yes"="TRUE"))
 
 table(pData(MAIRE)$chemo)
 levels(pData(MAIRE)$chemo)
@@ -108,7 +108,7 @@ mergedES = mergeNONE(list(KAO,INR,STK,UPS,MAIRE))
 pheno = pData(mergedES)
 library(plyr)
 
-pheno2 = colwise(function(x) plyr::revalue(x,c(" TRUE"="TRUE")))(pheno)
+pheno2 = colwise(function(x) { if(" TRUE" %in% levels(x)) { x <- plyr::revalue(x,c(" TRUE"="TRUE")) }; return(x) })(pheno)
 rownames(pheno2) = rownames(pheno)
 
 pheno =pheno2
@@ -123,11 +123,12 @@ clinical_metacohort = mergedCOMBAT
 
 
 pheno = pData(mergedCOMBAT)
-pheno2 = colwise(function(x) plyr::revalue(x,c(" TRUE"="TRUE")))(pheno)
+pheno2 = colwise(function(x) { if(" TRUE" %in% levels(x)) { x <- plyr::revalue(x,c(" TRUE"="TRUE")) }; return(x) })(pheno)
 rownames(pheno2) = rownames(pheno)
 
 pheno=pheno2
 pheno$age = as.numeric(as.character(pheno$age))
+pheno$grade <- as.numeric(as.character(pheno$grade))
 pheno$lymphNodeNum = as.numeric(as.character(pheno$lymphNodeNum))
 pheno$os.t = as.numeric(as.character(pheno$os.t))
 pheno$rdfs.t = as.numeric(as.character(pheno$rdfs.t))
@@ -135,12 +136,17 @@ pheno$rfs.t = as.numeric(as.character(pheno$rfs.t))
 pheno$size = as.numeric(as.character(pheno$size))
 pheno$t_stage = factor(as.numeric(as.character(pheno$t_stage)))
 
+# check blank
+! unique(sapply(1:ncol(pheno), function(i) { y <- any(grepl("^ ", pheno[, i])) }))
+
 pheno_other = data.frame(rfs.t=pheno$os.t/365,rfs.e=pheno$os.e=="TRUE",anthra=pheno$anthra,age=pheno$age, tam=pheno$Tam,
                          er = as.factor(pheno$er),pr = as.factor(pheno$pr),her2 = as.factor(pheno$her2),
                          lymphNodePos= pheno$lympNodePos,t.stage=factor(pheno$t_stage),cohort=pheno$cohort,stringsAsFactors = F)
 
 
 pheno.df = na.omit(pheno_other)
+dim(pheno.df)
+
 pheno.df$cohort = droplevels(pheno.df$cohort)
 
 library(rms)
