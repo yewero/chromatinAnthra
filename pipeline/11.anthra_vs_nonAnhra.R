@@ -109,7 +109,7 @@ mergedES = mergeNONE(list(KAO,INR,STK,UPS,MAIRE))
 pheno = pData(mergedES)
 library(plyr)
 
-pheno2 = colwise(function(x) plyr::revalue(x,c(" TRUE"="TRUE")))(pheno)
+pheno2 = colwise(function(x) { if(" TRUE" %in% levels(x)) { x <- plyr::revalue(x,c(" TRUE"="TRUE")) }; return(x) })(pheno)
 rownames(pheno2) = rownames(pheno)
 
 pheno =pheno2
