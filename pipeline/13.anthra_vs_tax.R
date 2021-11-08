@@ -214,6 +214,8 @@ eset_1_COMBAT2 = mergedCOMBAT[mergedCOMBAT@featureData@data$ENTREZ_GENE_ID %in% 
 
 save(clinical_metacohort,pheno.df,file="../data/clinical_metacohort_anthra_vs_TAX.RData")
 
+library("rms")
+
 mulvarrfs.res = NULL
 contrast.res = NULL
 for(i in 1:nrow(eset_1_COMBAT2)){
