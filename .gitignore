@@ -35,3 +35,13 @@ data/clinical/GSE*_raw.RData
 data/clinical/rmas/*/rmaData*.RData
 data/clinical/uppsala-U133A.RData
 data/clinical/stockholm-U133A.RData
+
+## 11
+data/clinical_metacohort_anthra_vs_nonAnthra.RData
+
+## 12
+data/clinical_metacohort_anthra_vs_CMF.RData
+
+## 13
+data/clinical_metacohort_anthra_vs_TAX.RData
+
